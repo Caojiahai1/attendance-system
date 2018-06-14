@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.dao.UserDAO">
+    <resultMap id="getMap" type="cc.model.User">
+    </resultMap>
+
+    <select id="getAll" resultMap="getMap">
+        SELECT * FROM USER
+    </select>
+    
+    <select id="userValidate" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM USER WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <select id="userExist" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM USER WHERE username = #{username}
+    </select>
+
+    <insert id="register" parameterType="cc.model.User">
+        INSERT INTO USER(username, birthday, sex, address, password)
+        VALUES (#{username}, #{birthday}, #{sex}, #{address}, #{password})
+    </insert>
+
+</mapper>

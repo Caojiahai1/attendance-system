@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.dao.EmployeeDAO">
+
+    <cache eviction="LRU" type="cc.common.cache.RedisCache" />
+
+    <resultMap id="getMap" type="cc.model.Employee">
+    </resultMap>
+
+    <select id="getAll" parameterType="int" resultMap="getMap">
+        SELECT * FROM EMPLOYEE limit #{offset}, #{limit}
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT COUNT(*) FROM EMPLOYEE
+    </select>
+
+    <insert id="addEmployee" parameterType="cc.model.Employee">
+        INSERT INTO EMPLOYEE(username, usercode, sex, age, hiredate)
+        VALUES(#{username}, #{usercode}, #{sex}, #{age}, #{hiredate})
+    </insert>
+
+    <update id="updateEmployee" parameterType="cc.model.Employee">
+        UPDATE EMPLOYEE SET username = #{username}, usercode = #{usercode}, sex = #{sex}, age = #{age}, hiredate = #{hiredate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteEmployee" parameterType="cc.model.Employee">
+        DELETE FROM EMPLOYEE WHERE id = #{id}
+    </update>
+
+</mapper>
